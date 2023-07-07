@@ -5,6 +5,11 @@
 npm install
 ```
 
+### Run Mock API 
+```
+npm start
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
