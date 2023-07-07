@@ -1,0 +1,54 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "teamMember": {
+        "avatar": "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp",
+        "name": "Lalisa"
+      },
+      "task": "Check Mail ",
+      "priority": "High priority",
+      "completed": false
+    },
+    {
+      "id": 2,
+      "teamMember": {
+        "avatar": "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp",
+        "name": "John Smith"
+      },
+      "task": "Send project proposal to client",
+      "priority": "Low priority",
+      "completed": false
+    },
+    {
+      "id": 3,
+      "teamMember": {
+        "avatar": "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp",
+        "name": "Emily Johnson"
+      },
+      "task": "Prepare sales presentation",
+      "priority": "Low priority",
+      "completed": false
+    },
+    {
+      "id": 4,
+      "teamMember": {
+        "avatar": "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp",
+        "name": "Michael Wilson"
+      },
+      "task": "Review website redesign mockups",
+      "priority": "Middle priority",
+      "completed": false
+    },
+    {
+      "id": 5,
+      "teamMember": {
+        "avatar": "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp",
+        "name": "Sophia Davis"
+      },
+      "task": "Schedule team meeting",
+      "priority": "Low priority",
+      "completed": true
+    }
+  ]
+}

@@ -47,82 +47,74 @@
 import { ref } from 'vue'
 import TodoItem from './TodoItem'
 import AddToDo from './AddToDo'
-import { v4 as uuidv4 } from 'uuid'
+// import { v4 as uuidv4 } from 'uuid'
+import axios from 'axios'
 
 export default {
     name: 'ToDos',
         components: { TodoItem, AddToDo },
-    setup() { // truyền toàn bộ dữ liệu cho compnent
-        const todos = ref([
-            {
-                id: uuidv4,
-                teamMember: {
-                    avatar: "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp",
-                    name: "Alice Mayer"
-                },
-                task: "Call Sam For payments",
-                priority: "High priority",
-                completed: false
-            },
-            {
-                id: uuidv4,
-                teamMember: {
-                    avatar: "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp",
-                    name: "John Smith"
-                },
-                task: "Send project proposal to client",
-                priority: "Low priority",
-                completed: false
-            },
-            {
-                id: uuidv4,
-                teamMember: {
-                    avatar: "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp",
-                    name: "Emily Johnson",
-                },
-                task: "Prepare sales presentation",
-                priority: "Low priority",
-                completed: false
-            },
-            {
-                id: uuidv4,
-                teamMember: {
-                    avatar: "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp",
-                    name: "Michael Wilson"
-                },
-                task: "Review website redesign mockups",
-                priority: "Middle priority",
-                completed: false
-            },
-            {
-                id: uuidv4,
-                teamMember: {
-                    avatar: "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp",
-                    name: "Sophia Davis"
-                },
-                task: "Schedule team meeting",
-                priority: "Low priority",
-                completed: true
+    setup() { // Get all data for component
+        const todos = ref([])
+
+        // get all data from API
+        const getAllTodos = async () => {
+            try {
+                const res = axios.get('http://localhost:3000/todos')
+                todos.value = (await res).data
+            } catch (error) {
+                console.log(error)
             }
-        ])
+        }
+        getAllTodos()
 
-        const markComplete = (id) => {
-            todos.value = todos.value.map(todo => {
-                if(todo.id === id) todo.completed = !todo.completed
-                return todo
-            })
+        // const markComplete = (id) => {
+        //     todos.value = todos.value.map(todo => {
+        //         if(todo.id === id) todo.completed = !todo.completed
+        //         return todo
+        //     })
+        // }
+        
+        // update todo
+        const markComplete = async (todo) => {
+            try {
+                const response = await axios.patch(`http://localhost:3000/todos/${todo.id}`, { completed: !todo.completed });
+                if (response.status >= 200 && response.status < 300) {
+                    todos.value = todos.value.map(existingTodo => {
+                        if (existingTodo.id === todo.id) {
+                            return { ...existingTodo, completed: !todo.completed };
+                        }
+                        return existingTodo;
+                    })
+                } else {
+                    console.log(`Error: Todo completion status update failed.`);
+                }
+            } catch (error) {
+                console.log(error);
+            }
         }
 
-        const deleteItem = (id) => {
-            todos.value = todos.value.filter(todo => {
-                return todo.id !== id
-            })
+        // delete todo
+        const deleteItem = async (id) => {
+            try {
+                await axios.delete(`http://localhost:3000/todos/${id}`)
+                todos.value = todos.value.filter(todo => { todo.id !== id })
+                getAllTodos()
+            } catch (error) {
+                console.log(error)
+            }
         }
 
-        const addItem = (newItem) => {
-            todos.value.push(newItem)
+        // insert todo
+        const addItem = async (newItem) => {
+            try {
+                const res = await axios.post('http://localhost:3000/todos', newItem)
+                todos.value.push(res.data)
+            } catch (error) {
+                console.log(error)
+            }
         }
 
+        // only return when you want to pass data for component
         return { 
             todos,
             markComplete,

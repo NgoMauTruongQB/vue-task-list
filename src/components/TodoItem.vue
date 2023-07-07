@@ -45,12 +45,13 @@ export default {
     props: ['todoProps'],
     setup(props, context) {
         const markItemCompleted = () => {
-            context.emit('item-completed', props.todoProps.id)
+            context.emit('item-completed', props.todoProps)
         }
 
         const deleteItem = () => {
             context.emit('item-deleted', props.todoProps.id)
         }
+        
         return {
             markItemCompleted,
             deleteItem

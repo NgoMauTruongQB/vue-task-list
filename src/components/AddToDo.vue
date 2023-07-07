@@ -28,7 +28,6 @@
 
 <script>
 import { ref } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
 
 export default {
     name: 'AddToDo',
@@ -41,7 +40,6 @@ export default {
             event.preventDefault()
 
             const newItem = {
-                id: uuidv4,
                 teamMember: {
                     avatar: "https://haycafe.vn/wp-content/uploads/2022/02/Avatar-trang-den.png",
                     name: member.value
