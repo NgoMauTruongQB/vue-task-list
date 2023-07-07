@@ -25,10 +25,15 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="card-footer text-end p-3">
+                <div class="card-footer p-5">
+                    <AddToDo
+                        @add-item="addItem"
+                    />
+                </div>
+                <!-- <div class="card-footer text-end p-3">
                     <button class="me-2 btn btn-link">Cancel</button>
                     <button class="btn-add">Add Task</button>
-                </div>
+                </div> -->
                 </div>
 
             </div>
@@ -41,14 +46,16 @@
 
 import { ref } from 'vue'
 import TodoItem from './TodoItem'
+import AddToDo from './AddToDo'
+import { v4 as uuidv4 } from 'uuid'
 
 export default {
     name: 'ToDos',
-        components: { TodoItem },
+        components: { TodoItem, AddToDo },
     setup() { // truyền toàn bộ dữ liệu cho compnent
         const todos = ref([
             {
-                id: "1",
+                id: uuidv4,
                 teamMember: {
                     avatar: "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp",
                     name: "Alice Mayer"
@@ -58,7 +65,7 @@ export default {
                 completed: false
             },
             {
-                id: "2",
+                id: uuidv4,
                 teamMember: {
                     avatar: "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp",
                     name: "John Smith"
@@ -68,7 +75,7 @@ export default {
                 completed: false
             },
             {
-                id: "3",
+                id: uuidv4,
                 teamMember: {
                     avatar: "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp",
                     name: "Emily Johnson",
@@ -78,7 +85,7 @@ export default {
                 completed: false
             },
             {
-                id: "4",
+                id: uuidv4,
                 teamMember: {
                     avatar: "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp",
                     name: "Michael Wilson"
@@ -88,7 +95,7 @@ export default {
                 completed: false
             },
             {
-                id: "5",
+                id: uuidv4,
                 teamMember: {
                     avatar: "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava5-bg.webp",
                     name: "Sophia Davis"
@@ -109,13 +116,18 @@ export default {
         const deleteItem = (id) => {
             todos.value = todos.value.filter(todo => {
                 return todo.id !== id
-            });
-        };
+            })
+        }
+
+        const addItem = (newItem) => {
+            todos.value.push(newItem)
+        }
 
         return { 
             todos,
             markComplete,
-            deleteItem
+            deleteItem,
+            addItem
         } 
     },
 }
